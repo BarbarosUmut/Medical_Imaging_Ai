@@ -35,13 +35,29 @@ nibabel_datas, nibabel_binaries, nibabel_hidden = collect_all("nibabel")
 # pydicom: codec plugins.
 pydicom_datas, pydicom_binaries, pydicom_hidden = collect_all("pydicom")
 
-# safehttpx, groovy, gradio's deps that often get missed.
+# safehttpx: reads version.txt at import time — needs collect_all, not just hidden.
+safehttpx_datas, safehttpx_binaries, safehttpx_hidden = collect_all("safehttpx")
+
+# groovy: gradio dep that may also ship data files.
+try:
+    groovy_datas, groovy_binaries, groovy_hidden = collect_all("groovy")
+except Exception:
+    groovy_datas, groovy_binaries, groovy_hidden = [], [], []
+
+# tomlkit: gradio config parser, has data.
+try:
+    tomlkit_datas, tomlkit_binaries, tomlkit_hidden = collect_all("tomlkit")
+except Exception:
+    tomlkit_datas, tomlkit_binaries, tomlkit_hidden = [], [], []
+
+# huggingface_hub: gradio uses it for downloads.
+try:
+    hf_datas, hf_binaries, hf_hidden = collect_all("huggingface_hub")
+except Exception:
+    hf_datas, hf_binaries, hf_hidden = [], [], []
+
+# Misc hidden imports that PyInstaller doesn't auto-detect.
 extra_hidden = [
-    "safehttpx",
-    "groovy",
-    "ffmpy",
-    "pydub",
-    "tomlkit",
     "starlette",
     "uvicorn",
     "uvicorn.lifespan.on",
@@ -50,8 +66,6 @@ extra_hidden = [
     "uvicorn.protocols.http.auto",
     "uvicorn.protocols.websockets.auto",
     "uvicorn.logging",
-    "huggingface_hub",
-    "aiofiles",
     "matplotlib.backends.backend_agg",
     "skimage",
     "scipy.special.cython_special",
@@ -70,6 +84,10 @@ a = Analysis(
         + monai_binaries
         + nibabel_binaries
         + pydicom_binaries
+        + safehttpx_binaries
+        + groovy_binaries
+        + tomlkit_binaries
+        + hf_binaries
     ),
     datas=(
         gradio_datas
@@ -77,6 +95,10 @@ a = Analysis(
         + monai_datas
         + nibabel_datas
         + pydicom_datas
+        + safehttpx_datas
+        + groovy_datas
+        + tomlkit_datas
+        + hf_datas
         # Bundle our own packages and model weights as data so the
         # _MEIPASS-relative paths in app/main.py resolve correctly.
         + [
@@ -93,6 +115,10 @@ a = Analysis(
         + monai_hidden
         + nibabel_hidden
         + pydicom_hidden
+        + safehttpx_hidden
+        + groovy_hidden
+        + tomlkit_hidden
+        + hf_hidden
         + extra_hidden
         + collect_submodules("inference")
         + collect_submodules("llm")
