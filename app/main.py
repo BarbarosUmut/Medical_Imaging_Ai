@@ -4,12 +4,30 @@ Run: python app/main.py
 """
 from __future__ import annotations
 
+import os
 import sys
+import threading
+import webbrowser
 import warnings
 import traceback
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+def _resource_root() -> Path:
+    """Return the directory that holds bundled resources (models/, etc.).
+
+    When the app runs from source: project root (parent of app/).
+    When packaged with PyInstaller: sys._MEIPASS (the unpacked bundle dir).
+    """
+    if getattr(sys, "frozen", False) and hasattr(sys, "_MEIPASS"):
+        return Path(sys._MEIPASS)
+    return Path(__file__).resolve().parents[1]
+
+
+# Make sibling packages importable when running from source.
+# (PyInstaller handles imports via its own bootloader, so this is a no-op there.)
+if not getattr(sys, "frozen", False):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import gradio as gr
 import numpy as np
@@ -52,7 +70,7 @@ _last_lung_result:  dict | None = None
 def load_models() -> None:
     global brain_segmentor_2d, brain_segmentor_3d, lung_classifier, report_generator
 
-    project_root = Path(__file__).resolve().parents[1]
+    project_root = _resource_root()
 
     brain_2d_path = project_root / MODEL_PATHS["brain_2d"]
     if brain_2d_path.exists():
@@ -668,7 +686,24 @@ def build_ui() -> gr.Blocks:
 # Entry point
 # ---------------------------------------------------------------------------
 
+def _open_browser_delayed(url: str = "http://localhost:7860", delay: float = 2.5) -> None:
+    """Open the default browser to the Gradio URL after the server is up."""
+    def _open():
+        try:
+            webbrowser.open(url)
+        except Exception as exc:  # noqa: BLE001
+            warnings.warn(f"[WARN] Could not open browser automatically: {exc}")
+    threading.Timer(delay, _open).start()
+
+
 if __name__ == "__main__":
+    # Frozen (PyInstaller) mode: stdout may be None when --noconsole is used;
+    # guard our prints. We keep console enabled for log visibility, but be safe.
+    if getattr(sys, "frozen", False) and sys.stdout is None:
+        sys.stdout = open(os.devnull, "w")  # noqa: SIM115
+        sys.stderr = open(os.devnull, "w")  # noqa: SIM115
+
     load_models()
     demo = build_ui()
+    _open_browser_delayed()
     demo.launch(server_name="0.0.0.0", server_port=7860, share=False, css=_CUSTOM_CSS)

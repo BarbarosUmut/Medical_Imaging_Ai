@@ -73,6 +73,24 @@ python app/main.py
 
 Tarayıcıdan **http://localhost:7860** adresini aç.
 
+## Standalone Windows Build (PyInstaller)
+
+Uygulamayı Python ortamı kurmadan dağıtmak için PyInstaller ile tek klasörlük (`--onedir`) bir Windows build üretebilirsin:
+
+```bash
+# venv aktifken
+pip install pyinstaller
+pyinstaller medical_imaging_ai.spec --clean --noconfirm
+```
+
+Çıktı: `dist/MedicalImagingAI/` klasörü, içinde `MedicalImagingAI.exe`. Klasörü ZIP'leyip dağıtabilirsin (~3-4 GB, CUDA dâhil).
+
+**Kullanıcı tarafında:**
+1. ZIP'i aç
+2. `MedicalImagingAI.exe`'yi çift tıkla
+3. Tarayıcı otomatik olarak http://localhost:7860 adresine açılır
+4. **Ollama**'nın ayrıca kurulu ve çalışıyor olması gerekir (LLM rapor için): https://ollama.com/download
+
 ## Veri Setleri
 
 Projede iki farklı tıbbi görüntüleme veri seti kullanılmıştır. `data/` klasörü repoya dahil değildir; aşağıdaki kaynaklardan indirip `data/brain/raw/` ve `data/lung/raw/` altına yerleştirebilirsin.

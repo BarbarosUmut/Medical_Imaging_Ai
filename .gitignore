@@ -69,3 +69,8 @@ secrets.json
 
 # ===== Claude Code yerel ayarlar =====
 .claude/settings.local.json
+
+# ===== PyInstaller build çıktıları =====
+build/
+dist/
+*.spec.bak
