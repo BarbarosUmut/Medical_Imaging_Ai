@@ -1,0 +1,71 @@
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ===== Sanal ortam =====
+venv/
+env/
+.venv/
+ENV/
+
+# ===== Veri setleri (büyük dosyalar - GitHub'a yüklenmez) =====
+data/
+*.nii
+*.nii.gz
+*.dcm
+
+# ===== Log dosyaları =====
+*.log
+app_error.log
+app_startup.log
+app_stderr.log
+app_stdout.log
+
+# ===== Diagnostic / geçici dosyalar =====
+diag.txt
+diag2.py
+diag2.txt
+diag2_err.txt
+diag3.py
+diag3.txt
+diag3_err.txt
+diag3_out.txt
+err.txt
+out.txt
+test_out.txt
+gradio_verbose.txt
+
+# ===== Sonuçlar / çıktı =====
+results/
+
+# ===== Gradio cache =====
+.gradio/
+flagged/
+
+# ===== IDE / Editör =====
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ===== Jupyter =====
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ===== Ortam değişkenleri (sırlar) =====
+.env
+.env.local
+*.key
+secrets.json
+
+# ===== Claude Code yerel ayarlar =====
+.claude/settings.local.json
