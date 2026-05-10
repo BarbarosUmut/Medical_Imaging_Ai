@@ -8,7 +8,7 @@ Beyin MR tümör segmentasyonu ve Akciğer X-Ray patoloji sınıflandırması ya
 |---|---|---|
 | Beyin MR Segmentasyon | Tümör segmentasyonu | 2D U-Net + 3D U-Net (MONAI) |
 | Akciğer X-Ray Sınıflandırma | 4 sınıf (COVID / Lung Opacity / Normal / Viral Pneumonia) | DenseNet-121 |
-| LLM Rapor Üretici | Türkçe klinik rapor | Ollama (yerel) |
+| LLM Rapor Üretici | Türkçe klinik rapor | Ollama  |
 | Web Arayüzü | Kullanıcı arayüzü | Gradio |
 
 ## Gereksinimler
