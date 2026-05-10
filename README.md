@@ -41,7 +41,7 @@ pip install -r requirements.txt
 ollama pull llama3
 ```
 
-## 3. Ollama Kurulumu 
+## Ollama Kurulumu 
 AI Radyolog asistanının çalışabilmesi için sisteminizde [Ollama](https://ollama.com/)'nın kurulu olması gerekmektedir.
 
 # Ollama'yı başlatın ve Llama 3 modelini indirin
@@ -237,3 +237,6 @@ python -m pytest tests/test_brain.py -v
 ## ⚠️ Sorumluluk Reddi
 
 Bu yazılım **yalnızca araştırma ve eğitim amaçlıdır**. Klinik tanı veya tedavi kararları için kullanılmamalıdır. Tıbbi görüntüleme yorumlamasını her zaman lisanslı bir radyolog yapmalıdır.
+
+## Geliştirici
+Umut Barbaros BABAHAN, Yapay Zeka Mühendisliği, Ostim Teknik Üniversitesi.
