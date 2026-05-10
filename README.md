@@ -45,7 +45,9 @@ ollama pull llama3
 AI Radyolog asistanının çalışabilmesi için sisteminizde [Ollama](https://ollama.com/)'nın kurulu olması gerekmektedir.
 
 Ollama'yı başlatın ve Llama 3 modelini indirin
+```bash
 ollama run llama3
+```
 
 ## requirements.txt İçermesi Gerekenler
 
