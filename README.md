@@ -72,6 +72,8 @@ python app/main.py
 ```
 
 Tarayıcıdan **http://localhost:7860** adresini aç.
+Beyin MRı için kullanmanız gereken dosya formatları (`.nii`,`.nii.gz`)'dir
+Akciğer X-Ray'i için kullanmanız gereken dosya formatı (.png)'dir
 
 ## Standalone Windows Build (PyInstaller)
 
